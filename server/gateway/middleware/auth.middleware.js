@@ -1,4 +1,4 @@
-import redis from "../../shared/redis.js";
+import redis from "../../shared/redis/redis.js";
 
 const protect = async (req, res, next) => {
   try {
@@ -20,3 +20,5 @@ const protect = async (req, res, next) => {
     return res.status(500).json({ message: `protect erroor ${error}` });
   }
 };
+
+export default protect;
