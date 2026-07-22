@@ -13,6 +13,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use("/auth", proxy(process.env.AUTH_SERVICE));
+app.use("/chat", proxy(process.env.CHAT_SERVICE));
 app.get("/me", protect, getCurrrnetUser);
 
 app.get("/", (req, res) => {
