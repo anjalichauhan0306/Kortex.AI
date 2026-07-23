@@ -13,8 +13,9 @@ const app = express();
 app.use(cookieParser());
 
 app.use("/auth", proxy(process.env.AUTH_SERVICE));
-app.use("/chat", proxy(process.env.CHAT_SERVICE));
+app.use("/chat", proxy(protect,process.env.CHAT_SERVICE));
 app.get("/me", protect, getCurrrnetUser);
+app.use("/agent", proxy(protect,process.env.AGENT_SERVICE));
 
 app.get("/", (req, res) => {
   res.json("hello from gateway");
