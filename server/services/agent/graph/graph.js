@@ -17,4 +17,40 @@ WorkFlow.addNode("imageGen",imageGenAgent)
 WorkFlow.addNode("coding",codingAgent)
 
 WorkFlow.addEdge("__start__","router")
-WorkFlow.addConditionalEdges("router",router)
+WorkFlow.addConditionalEdges("router",(state)=>{
+    switch (state.agent) {
+        case "chat":
+            return "chat";
+            break;
+        case "coding":
+            return "coding";
+            break;
+        case "ppt":
+            return "ppt";
+            break;
+        case "imageGen":
+            return "imageGen";
+            break;
+        case "search":
+            return "search";
+        default: 
+          return "chat";
+    }
+}, {
+    chat:"chat",
+    search:"search",
+    ppt:"ppt",
+    pdf:"pdf",
+    coding:"coding",
+    imageGen:"imageGen"
+})
+
+WorkFlow.addEdge("search","chat")
+WorkFlow.addEdge("chat","__end__");
+WorkFlow.addEdge("coding","__end__");
+WorkFlow.addEdge("ppt","__end__");
+WorkFlow.addEdge("pdf","__end__");
+WorkFlow.addEdge("imageGen","__end__");
+
+const graph = WorkFlow.compile()
+export default graph;
